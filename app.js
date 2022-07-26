@@ -1,13 +1,16 @@
-//application Expresss
+//application Express
 const express = require('express');
 //importer mongoose
 const mongoose = require('mongoose');
-// const saucesRoutes = require('./routes/sauces');
+const saucesRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
-// const path = require('path');
+const path = require('path');
+
+require('dotenv').config();
+console.log(process.env._PASSWORD);
 
 // connexion à la base de données mongoDb
-mongoose.connect('mongodb+srv://PhilippeS:PhilTest@cluster0.gho6a.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect(`mongodb+srv://${process.env._USER}:${process.env._PASSWORD}@cluster0.gho6a.mongodb.net/?retryWrites=true&w=majority`,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -34,5 +37,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/auth', userRoutes);
+app.use('/api/sauces', saucesRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
