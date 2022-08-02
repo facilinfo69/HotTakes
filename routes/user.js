@@ -3,9 +3,9 @@ const router = express.Router();
 
 const userCtrl = require('../controllers/user');
 
-//route POST pour recuperer la création d'un objet
+//route POST pour créer un compte 
 router.post('/signup', userCtrl.signup); 
+//route POST pour se connecter
 router.post('/login', userCtrl.login);
-
 
 module.exports = router;
